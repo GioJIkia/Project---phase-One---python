@@ -247,11 +247,6 @@ def withdraw(accounts, username):
         if amount <= 0:
             print("თანხა უნდა იყოს დადებითი რიცხვი.")
             return
-        
-        # ვალიდაცია, არასწორი ვალუტის გამორიცხვა
-        if currency not in rates:
-            print("გთხოვთ აირჩიოთ სასურველი ვალუტის შესაბამისი ციფრი.")
-            return
 
         # თანხის ლარში გადაყვანა
         gel_amount = amount * rates[currency]
