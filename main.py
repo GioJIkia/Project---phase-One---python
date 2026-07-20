@@ -453,6 +453,7 @@ with open(file_name, "w", encoding="utf-8") as file:
 # შეცვალეთ ტექსტური ფაილი მომხმარებლის ანგარიშებისა და მათთან დაკავშირებული
 # ინფორმაციის სამართავად.
 
+import os
 # საქაღალდის და ფაილის შექმნა
 folder = "project_4"
 file = "cashpoint.py"
@@ -640,6 +641,7 @@ def login(accounts):
         return username
 
     print("თქვენს მიერ მითითებული მონაცემები არასწორია.")
+    print ()
     return None
 
 # ბალანსის შემოწმების ფუნქცია
@@ -649,7 +651,7 @@ def check_balance(accounts, username):
 # თანხის შეტანის ფუნქცია
 def deposit(accounts, username):
     try:
-        amount = float(input("შეიტანეთ თანხის რაოდენობა, რომლის შეტანაც გინდათ: "))
+        amount = float(input("შეიტანეთ ლარის რაოდენობა, რომლის შეტანაც გინდათ: "))
         print ()
 
         # ვალიდაცია, უარყოფითი თანხის გამორიცხვა
@@ -672,29 +674,78 @@ def deposit(accounts, username):
 
 # თანხის გატანის ფუნქცია
 def withdraw(accounts, username):
+
+    # ვალუტის კურსები
+    rates = {
+        "1": 1,
+        "2": 2.6327,
+        "3": 3.01
+    }
+    while True:
+        print ()
+        print("გასატანი თანხის სასურველი ვალუტა")
+        print ("--------------------------------")
+        print ()
+        print("1. ლარი")
+        print("2. დოლარი")
+        print("3. ევრო")
+        print ()
+
+        currency = input("აირჩიეთ სასურველი ვალუტის შესაბამისი ციფრი: ").strip()
+        print ()
+
+        if currency not in rates:
+            print("გთხოვთ აირჩიეთ სასურველი ვალუტის შესაბამისი ციფრი.")
+            print()
+            continue
+        else:
+            break
+    
+
     try:
         amount = float(input("შეიტანეთ თანხის რაოდენობა, რომლის გატანაც გინდათ: "))
         print ()
+
+        # ვალიდაცია, უარყოფითი თანხის გამორიცხვა
         if amount <= 0:
             print("თანხა უნდა იყოს დადებითი რიცხვი.")
             return
+        
+        # ვალიდაცია, არასწორი ვალუტის გამორიცხვა
+        if currency not in rates:
+            print("გთხოვთ აირჩიოთ სასურველი ვალუტის შესაბამისი ციფრი.")
+            return
 
-        if amount > accounts[username]["balance"]:
+        # თანხის ლარში გადაყვანა
+        gel_amount = amount * rates[currency]
+
+        # ვალიდაცია, ზედმეტი თანხის გამოტანის გამორიცხვა
+        if gel_amount > accounts[username]["balance"]:
             print("ბალანსზე არ გაქვთ ოპერაციის შესრულებისთვის საკმარისი თანხა.")
             return
         
         # არსებული ბალანსის შემცირება
-        accounts[username]["balance"] -= amount
+        accounts[username]["balance"] -= gel_amount
 
         # მონაცემების შენახვა
         save_accounts(accounts)
 
         print("მითითებული თანხა წარმატებით გაიტანეთ.")
         print ()
+        if currency == "1":
+            print(f"გატანილია {amount} ლარი.")
+            print ()
+        elif currency == "2":
+            print(f"გატანილია {amount} დოლარი ({gel_amount:.2f} ლარი).")
+            print ()
+        else:
+            print(f"გატანილია {amount} ევრო ({gel_amount:.2f} ლარი).")
+            print ()
+            
         print (f"თქვენი ბალანსი შეადგენს: {accounts[username]['balance']} ლარს")
 
     except ValueError:
-        print("არასწორი მონაცემი.")
+        print("მითითებული მონაცემები არასწორია")
 
 # მთავარ მენიუში დაბრუნების ფუნქცია
 def back_to_menu():
@@ -704,7 +755,7 @@ def back_to_menu():
         print("2. სისტემიდან გამოსვლა")
         print()
 
-        choice = input("გთხოვთ აირჩიეთ სასურველი ოპერაცია: ")
+        choice = input("გთხოვთ აირჩიეთ სასურველი ოპერაციის შესაბამისი ციფრი: ")
 
         if choice == "1":
             return
@@ -733,7 +784,7 @@ while True:
     print()
 
     # მომხმარებლის არჩევანის ჩაწერა
-    choice = input("აირჩიეთ: ")
+    choice = input("აირჩიეთ შესაბამისი ციფრი: ")
 
     # რეგისტრაციის გამოტანა
     if choice == "1":
@@ -754,7 +805,7 @@ while True:
 
                 # მომხმარებლის არჩევანის ჩაწერა
                 print()
-                option = input("აირჩიეთ: ")
+                option = input("აირჩიეთ შესაბამისი ციფრი: ")
 
                 # ბალანსის გამოტანა
                 print ()
