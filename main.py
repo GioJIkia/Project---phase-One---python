@@ -214,7 +214,6 @@ with open(file_name, "w", encoding="utf-8") as file:
 # ვლინდება სწორად გამოცნობილი ასოები და თამაში გრძელდება მანამ, სანამ მომხმარებელი
 # არ გამოიცნობს სიტყვას ან არ ამოიწურება მცდელობები.
 
-import os
 import random
 
 # საქაღალდის და ფაილის შექმნა
@@ -491,14 +490,12 @@ with open(file_name, "w", encoding="utf-8") as file:
 
 ###===============================================================================================================###
 
-# დავალება - 4 ბანკომატი
+# დავალება 4 - ბანკომატი
 # ბანკომატის აპლიკაცია საშუალებას აძლევს მომხმარებელს განახორციელოს ბანკომატის
 # ძირითადი ოპერაციების სიმულაცია. მომხმარებელს შეუძლია შეასრულოს ისეთი ქმედებები,
 # როგორიცაა ბალანსის შემოწმება, თანხის შეტანა და თანხის გატანა. მომხმარებლის
 # მონაცემები ინახება ტექსტურ ფაილში მომხმარებლის ანგარიშის ინფორმაციის
 # შესანარჩუნებლად.
-
-import os
 
 # საქაღალდის და ფაილის შექმნა
 folder = "project_4"
@@ -507,8 +504,7 @@ file = "cashpoint.py"
 os.makedirs(folder, exist_ok=True)
 file_name = os.path.join(folder, file)
 
-cashpoint_code = """import os
-import sys
+cashpoint_code = """import sys
 import re
 
 # ცვლადი, სადაც მომხმარებლების მონაცემები ინახება
@@ -888,3 +884,266 @@ while True:
 # ფაილში ჩაწერა მთელი იმ კოდის, რაც მოთავსებულია სამმაგ ბრჭყალებში
 with open(file_name, "w", encoding="utf-8") as file:
     file.write(cashpoint_code)
+
+###===============================================================================================================###
+
+# დავალება 5 - სტუდენტების მართვის სისტემა
+
+# შექმენით კონსოლის აპლიკაცია რომელიც წარმოადგენს სტუდენტის მართვის
+# მარტივ სისტემას ობიექტზე ორიენტირებული პროგრამირების პრინციპების გამოყენებით.
+# სისტემამ მომხმარებელს უნდა მისცეს საშუალება განახორციელოს ძირითადი ოპერაციები,
+# რომლებიც დაკავშირებულია სტუდენტის ინფორმაციასთან. თითოეულ სტუდენტს უნდა
+# ჰქონდეს ისეთი ატრიბუტები, როგორიცაა სახელი, სიის ნომერი და შეფასება.
+
+# 1. სტუდენტური კლასი:
+# • შექმენით სტუდენტური კლასი შემდეგი ატრიბუტებით:
+#     o Name Name (string) - სახელი
+#     o Roll Number (int) - სიის ნომერი
+#     o Grade (char) - შეფასება.
+
+# 2. კონსოლის აპლიკაცია:
+# • კონსოლის აპლიკაციის შემუშავება რომელიც მომხმარებელს მისცემს საშუალებას იურთიერთოს სტუდენტთა მართვის სისტემასთან.
+
+# 3. მენიუს სისტემა:
+# • მენიუს ჩვენება შემდეგი პარამეტრებით:
+#     o ახალი სტუდენტის დამატება
+#     o ყველა სტუდენტის ნახვა
+#     o სტუდენტის ძებნა ნომრის მიხედვით
+#     o მოსწავლის შეფასების განახლება
+#     o გასვლა
+
+# 4. ფუნქციონალობა:
+# • ახალი სტუდენტის დამატება:
+#     o სთხოვეთ მომხმარებელს შეიყვანოს მოსწავლის სახელი, სიის ნომერი და
+#     შეფასება.
+#     o შექმენით ახალი სტუდენტური ობიექტი და დაამატეთ ის სტუდენტების
+#     სიაში.
+# • ყველა სტუდენტის ნახვა:
+#     o სისტემაში ყველა სტუდენტის დეტალების ჩვენება.
+# • მოძებნეთ სტუდენტი ნომრის მიხედვით:
+#     o შესთავაზეთ მომხმარებელს შეიყვანოს სიის ნომერი.
+#     o მოძებნეთ სტუდენტი მითითებული ნომრით და აჩვენეთ მათი დეტალები.
+# • განაახლეთ მოსწავლის შეფასება:
+#     o შესთავაზეთ მომხმარებელს შეიყვანოს იმ სტუდენტის სიის ნომერი, რომლის
+#     შეფასებაც განახლებას საჭიროებს.
+#     o ნება მიეცით მომხმარებელს განაახლოს შეფასება მითითებული
+#     სტუდენტისთვის.
+# • გასვლა:
+#     o შეწყვიტე პროგრამა.
+
+# 5. ობიექტზე ორიენტირებული პრინციპები:
+# • საჭიროების შემთხვევაში გამოიყენეთ ინკაფსულაცია, მემკვიდრეობა და პოლიმორფიზმი.
+
+# 6. ვალიდაცია
+# • განახორციელეთ შეყვანის ვალიდაცია, რათა დარწმუნდეთ, რომ მომხმარებელი
+# შეიყვანს ვალიდურ ინფორმაციას.
+
+# 7. პროექტში გამოყენებული უნდა იყოს სხვადასხვა ტიპის ცვლადები, პროექტში გამოყენებული უნდა იყოს პირობითი და ციკლის ოპერატორები
+# პროექტში გამოყენებული უნდა იყოს მასივები, პროექტში სტუდენტს შექმნილი უნდა ჰქონდეს სამომხმარებლო ფუნქციები, კოდის ყველა მოდული დაკომენტარებული უნდა იყოს.
+
+# საქაღალდის და ფაილის შექმნა
+folder = "project_5"
+file = "student_management.py"
+
+os.makedirs(folder, exist_ok=True)
+file_name = os.path.join(folder, file)
+
+student_management_code = r"""from faker import Faker
+from random import choice
+import json
+import os
+import re 
+
+fake = Faker("ka_GE")
+
+
+if not os.path.exists("students.json"):
+    students = [
+        {
+            "roll_number": i,
+            "name": fake.name(),
+            "grade": choice(["A", "B", "C", "D", "E", "F"])
+        }
+        for i in range(1, 101)
+    ]
+
+    with open("students.json", "w", encoding="utf-8") as file:
+        json.dump(students, file, indent=2, ensure_ascii=False)
+
+class Student:
+    def __init__(self, name: str, roll_number: int, grade: str):
+        self.name = name
+        self.roll_number = roll_number
+        self.grade = grade
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @name.setter
+    def name(self, value: str):
+        normalized_name = " ".join(value.strip().split())
+        pattern = r"^[ა-ჰ]+(?:\s+[ა-ჰ]+)+$"
+        
+        if not re.match(pattern, normalized_name):
+            raise ValueError("გთხოვთ შეიყვანოთ სტუდენტის სახელი და გვარი ქართულად ზედმეტი სიმბოლოების გარეშე, შუაშუ სფეისით (მაგ. სახელი გვარი)")
+        if not (4 <= len(normalized_name) <= 25):
+            raise ValueError("გთხოვთ შეიყვანოთ სწორი სახელი და გვარი")
+
+        self._name = normalized_name
+
+    @property
+    def grade(self) -> str:
+        return self._grade
+
+    @grade.setter
+    def grade(self, value: str):
+        valid_grades = ["A", "B", "C", "D", "E", "F"]
+        formatted_grade = str(value).strip().upper()
+        
+        if formatted_grade not in valid_grades:
+            raise ValueError(f"არასწორი შეფასება! უნდა იყოს ერთ-ერთი შემდეგიდან: {', '.join(valid_grades)}")
+            
+        self._grade = formatted_grade
+        
+        
+    def __str__(self):
+        return f"Name: {self.name}, Roll Number: {self.roll_number}, Grade: {self.grade}"
+
+class StudentManagement:
+    def __init__(self, json_file="students.json"):
+        self.json_file = json_file
+        self.students = []
+        self.load_from_json()
+
+    def load_from_json(self):
+        with open(self.json_file, "r", encoding="utf-8") as file:
+            data = json.load(file)
+            self.students = []
+            for student in data:
+                try:
+                    self.students.append(
+                    Student(
+                        student["name"],
+                        student["roll_number"],
+                        student["grade"]
+                    )
+                    )
+                except ValueError:
+                    continue
+                    
+    def save_to_json(self):
+        data = []
+        for student in self.students:
+            data.append({
+                "name": student.name,
+                "roll_number": student.roll_number,
+                "grade": student.grade
+            })
+        with open(self.json_file, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=2, ensure_ascii=False)
+
+    def add_student(self, name: str, roll_number: int, grade: str):
+        if self.get_student_by_roll_number(roll_number) is None:
+            try:
+                student = Student(name, roll_number, grade)
+                self.students.append(student)
+                self.save_to_json()
+                print (f"სტუდენტი {name} წარმატებით დამატებულია")
+                return True
+            except ValueError:
+                return False
+        else:
+            print(f"❌ შეცდომა: სტუდენტი სიის ნომრით {roll_number} უკვე არსებობს!")
+            return False
+
+    def show_all_students(self):
+        print("*" * 38)
+        print(f" {'№':<5}{'სტუდენტი':<20} {'შეფასება'}")
+        print("*" * 38)
+        for student in self.students:
+            print(f" {student.roll_number:<5}{student.name :<25}{student.grade}")
+    
+    def get_student_by_roll_number(self, roll_number):
+        for student in self.students:
+            if student.roll_number == roll_number:
+                return student
+        return None
+
+    def update_student_grade(self, roll_number: int, grade: str):
+        student = self.get_student_by_roll_number(roll_number)
+        if student:
+            try:
+                student.grade = grade
+                self.save_to_json()
+                print(f"შეფასება წარმატებით განახლდა, {student.name}ს შეფასება უკვე არის {grade}")
+                return True
+            except ValueError:
+                return False
+
+        print("სტუდენტი ვერ მოიძებნა.")
+        return False
+
+def get_valid_int(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("❌ შეიყვანეთ მხოლოდ რიცხვი.")
+
+
+def main_menu():
+    system = StudentManagement()
+
+    while True:
+        print("\n" + "=" * 35)
+        print("სტუდენტების მართვის სისტემა")
+        print("=" * 35)
+        print("1. ახალი სტუდენტის დამატება")
+        print("2. ყველა სტუდენტის ნახვა")
+        print("3. სტუდენტის ძებნა ნომრის მიხედვით")
+        print("4. სტუდენტის შეფასების განახლება")
+        print("5. გასვლა")
+
+        choice = input("აირჩიეთ ოპერაცია (1-5): ").strip()
+
+        if choice == "1":
+            name = input("შეიყვანეთ სტუდენტის სახელი და გვარი: ").strip()
+            roll_num = get_valid_int("შეიყვანეთ სიის ნომერი: ")
+            grade = input("შეიყვანეთ შეფასება (A, B, C, D, E, F): ").strip()
+
+            system.add_student(name, roll_num, grade)
+
+        elif choice == "2":
+            system.show_all_students()
+
+        elif choice == "3":
+            roll_num = get_valid_int("შეიყვანეთ საძიებო სტუდენტის სიის ნომერი: ")
+            student = system.get_student_by_roll_number(roll_num)
+            if student:
+                print("\nნაპოვნია სტუდენტი:")
+                print(student)
+            else:
+                print(f"❌ სტუდენტი ნომრით {roll_num} ვერ მოიძებნა.")
+
+        elif choice == "4":
+            roll_num = get_valid_int("შეიყვანეთ სტუდენტის სიის ნომერი შეფასების შესაცვლელად: ")
+            student = system.get_student_by_roll_number(roll_num)
+            if student:
+                print(f"არჩეული სტუდენტი: {student.name} (მიმდინარე შეფასება: {student.grade})")
+                new_grade = input("შეიყვანეთ ახალი შეფასება: ").strip()
+                system.update_student_grade(roll_num, new_grade)
+            else:
+                print(f"❌ სტუდენტი ნომრით {roll_num} ვერ მოიძებნა.")
+
+        elif choice == "5":
+            print("პროგრამა დასრულებულია. ნახვამდის!")
+            break
+        else:
+            print("❌ არასწორი არჩევანი. გთხოვთ აირჩიოთ 1-დან 5-მდე.")
+
+main_menu()
+"""
+
+with open(file_name, "w", encoding="utf-8") as file:
+    file.write(student_management_code)
