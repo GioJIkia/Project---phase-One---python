@@ -1,3 +1,4 @@
+import os
 import sys
 import re
 
@@ -151,7 +152,9 @@ def register(accounts):
             
         # ასოების შეყვანის გამორიცხვა
         except ValueError:
+            print()
             print("შეიყვანეთ მხოლოდ რიცხვი.")
+            print()
 
     # ახალი მომხმარებლის დამატება        
     accounts[username] = {"email": email, "password": password, "balance": balance}
