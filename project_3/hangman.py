@@ -155,17 +155,16 @@ def hangman():
         # ვბეჭდავთ დარჩენილი მცდელობების რაოდენობას
         print()
         print(f"მცდელობა დარჩა: {attempts}")
+
         # ვბეჭდავთ შესაბამის გრაფიკულ გამოსახულებას მცდელობების მიხედვით
         print(stages[6 - attempts])
         print ()
-        # ვბეჭდავთ სიტყვის მიმდინარე მდგომარეობას (ტირეებით ან გამოცნობილი ასოებით)
-        current_display = get_display_word(random_word, guessed_letters)
-        print (f"სიტყვა: {current_display}")
 
         # ვაჩვენებთ მომხმარებელს უკვე გამოყენებული ასოების ისტორიას
         print ()
         print(f"შეყვანილი ასოების ისტორია: {', '.join(guessed_letters) if guessed_letters else 'ცარიელია'}")
         print ()
+        
         # ველოდებით ვალიდურ ასოს მომხმარებლისგან
         guess = get_valid_input(guessed_letters)
 
