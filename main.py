@@ -126,6 +126,7 @@ with open(file_name, "w", encoding="utf-8") as file:
 # რიცხვს.
 
 from random import randint
+import os
 
 # საქაღალდის და ფაილის შექმნა
 folder = "project_2"
@@ -207,8 +208,6 @@ def play_game():
         # პირობითი ოპერატორები
         if guess == secret_number:
             print(f"გილოცავთ,თქვენ გამოიცანით რიცხვი! ჩაფიქრებული რიცხვი იყო {secret_number}!")
-            print ()
-            print(f"თქვენი მცდელობების ისტორია: {user_input_history}")
             print ()
 
             # ციკლის შეწყვეტა მოგების შემთხვევაში
