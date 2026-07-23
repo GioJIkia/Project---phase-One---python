@@ -413,7 +413,7 @@ def hangman():
         # ვბეჭდავთ დარჩენილი მცდელობების რაოდენობას
         print()
         print(f"მცდელობა დარჩა: {attempts}")
-
+        
         # ვბეჭდავთ შესაბამის გრაფიკულ გამოსახულებას მცდელობების მიხედვით
         print(stages[6 - attempts])
         print ()
@@ -422,7 +422,7 @@ def hangman():
         print ()
         print(f"შეყვანილი ასოების ისტორია: {', '.join(guessed_letters) if guessed_letters else 'ცარიელია'}")
         print ()
-        
+
         # ველოდებით ვალიდურ ასოს მომხმარებლისგან
         guess = get_valid_input(guessed_letters)
 
@@ -603,8 +603,8 @@ def register(accounts):
         return
 
     # ვალიდაცია, მომხმარებლის სახელის შემადგენელი ნაწილის განსაზღვრა
-    if not re.match("^[a-zA-Z0-9]+$", username):
-        print("მომხმარებლის სახელი უნდა შეიცავდეს მხოლოდ ლათინურ ასოებს და ციფრებს.")
+    if not re.match("^[a-zA-Z0-9._%+-]+$", username):
+        print("მომხმარებლის სახელი უნდა შეიცავდეს მხოლოდ ლათინურ ასოებს, სიმბოლოებს და ციფრებს.")
         print ()
         return
 
@@ -688,7 +688,7 @@ def register(accounts):
                 
             break
             
-        # ასოების შეყვანის გამორიცხვა
+        # ასოების და სხვა სიმბოლოების შეყვანის გამორიცხვა
         except ValueError:
             print()
             print("შეიყვანეთ მხოლოდ რიცხვი.")
@@ -717,7 +717,7 @@ def login(accounts):
         print(f"შესვლა წარმატებით განხორციელდა {username}")
         return username
 
-    print("თქვენს მიერ მითითებული მონაცემები არასწორია.")
+    print("თქვენს მიერ მითითებული მონაცემები არასწორია, გთხოვთ გაიაროთ რეგისტრაცია.")
     print ()
     return None
 
