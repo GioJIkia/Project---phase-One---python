@@ -1,11 +1,3 @@
-# დავალება 1 - კალკულატორი
-
-# კალკულატორის ფუნქცია მომხმარებლებს საშუალებას აძლევს შეასრულონ ძირითადი
-# არითმეტიკული მოქმედებები (+, -, *, /). მომხმარებლებს შეუძლიათ შეიყვანონ ორი რიცხვი და
-# შემდეგ აირჩიონ ოპერაცია შედეგის მისაღებად. კალკულატორი ასევე შეიცავს შეყვანის
-# ვალიდაციას არასწორი შეყვანების დასამუშავებლად.
-
-
 import os
 
 # საქაღალდის და ფაილის შექმნა
@@ -15,15 +7,12 @@ file = "calculator.py"
 os.makedirs(folder, exist_ok=True)
 file_name = os.path.join(folder, file)
 
-calculator_code = """# კალკულატორის მათემატიკური ფუნქცია
-def calculator (num1, num2, operator):
-
-    # ოპერატორების ვალიდაცია
-    if operator not in ["+", "-", "*", "/", "%", "**"]:
-        return "შეცდომა, თქვენს მიერ შეყვანილია არასწორი ოპერატორი!"
+calculator_code = """#კალკულატორი
+def calculator(num1, num2, operator):
 
     # 0-ზე გაყოფის ვალიდაცია
     if operator in ["/", "%"] and num2 == 0:
+        print()
         return "შეცდომა, 0-ზე გაყოფა შეუძლებელია!"
 
     # ფუნქციის მათემატიკური მოქმედებები
@@ -39,48 +28,87 @@ def calculator (num1, num2, operator):
         return num1 % num2
     elif operator == "**":
         return num1 ** num2
-    else:
-        return "Invalid operator"
+
 
 # მომხმარებლის მიერ შესაყვანი ინფორმაციის ფუნქცია
-def user_input():
+def main():
+    print("=========== კალკულატორი ===========")
+    
+    num1 = None  # ინახავს წინა შედეგს, თუ მომხმარებელს მისი გამოყენება სურს
 
-    # მომხმარებლის ინტერფეისისთვის კალკულატორის სათაურის დაბეჭდვა
-    print ("=========== კალკულატორი ===========")
+    while True:
+        #პირველი რიცხვის შეყვანა და ვალიდაცია
+        if num1 is None:
+            while True:
+                try:
+                    print ()
+                    num1_input = input("შეიყვანეთ პირველი რიცხვი: ").strip()
 
-    # მომხმარებლის მიერ შესაყვანი ინფორმაციის ვალიდაციები
-    try:
-        # მომხმარებლის მიერ შესაყვანი პირველი რიცხვის ზედმეტი დროფების მოშორება და ათწილადად ქცევა
-        num1 = float(input("შეიყვანეთ პირველი რიცხვი: ").strip())
+                    num1 = float(num1_input)
+                    break
+                except ValueError:
+                    print ()
+                    print("შეცდომა, გთხოვთ შეიყვანოთ მხოლოდ ციფრები!")
 
-        # მომხმარებლის მიერ სასურველი ოპერატორის შეყვანა და დროფების მოშორება
-        operator = input("აირჩიეთ სასურველი ოპერაცია (+, -, *, /, %, **): ").strip()
+        #ოპერატორის შეყვანა და ვალიდაცია
+        while True:
+            print ()
+            operator = input("აირჩიეთ სასურველი ოპერაცია (+, -, *, /, %, **): ").strip()
+            if operator in ["+", "-", "*", "/", "%", "**"]:
+                break
+            print ()
+            print("შეცდომა, თქვენს მიერ შეყვანილია არასწორი ოპერატორი! გთხოვთ სცადოთ ხელახლა.")
 
-        # მომხმარებლის მიერ შესაყვანი მეორე რიცხვის ზედმეტი დროფების მოშორება და ათწილადად ქცევა
-        num2 = float(input("შეიყვანეთ მეორე რიცხვი: ").strip())
+        #მეორე რიცხვის შეყვანა და ვალიდაცია
+        while True:
+            try:
+                print ()
+                num2_input = input("შეიყვანეთ მეორე რიცხვი: ").strip()
+                num2 = float(num2_input)
+                break
+            except ValueError:
+                print ()
+                print("შეცდომა, გთხოვთ შეიყვანოთ მხოლოდ ციფრები!")
 
-        # გამოძახება მათემატიკური ფუნქციის და ცვლადში შენახვა
+        # გამოთვლა
         result = calculator(num1, num2, operator)
 
-        # შემოწმება, თუ მიღებული რიცხვები მთელია აღარ დაბეჭდავს ათწილადად.
-        if int(num1) == num1: num1 = int(num1)
-        if int(num2) == num2: num2 = int(num2)
-        if result == int(result): result = int(result)
+        #თუ კალკულატორმა ტექსტური შეცდომა დააბრუნა (მაგ. 0-ზე გაყოფა)
+        if isinstance(result, str):
+            print(result)
+            # შეცდომისას თავიდან ვიწყებთ
+            num1 = None 
+            continue
+
+        # მთელი რიცხვების ლამაზად გამოჩენა (ათწილადის გარეშე)
+        display_num1 = int(num1) if num1 == int(num1) else num1
+        display_num2 = int(num2) if num2 == int(num2) else num2
+        display_result = int(result) if result == int(result) else result
 
         # ეკრანზე საბოლოო ტოლობის გამოტანა
-        print(f"{num1} {operator} {num2} = {result}")
+        print()
+        print(f"შედეგი: {display_num1} {operator} {display_num2} = {display_result}")
 
-    except ValueError:
-        # თუ მომხმარებელმა რიცხვის ნაცვლად ასოები შეიყვანა, float() აგდებს შეცდომას
-        print("შეცდომა, გთხოვთ შეიყვანოთ მხოლოდ ციფრები!")
+        # შეკითხვა მომხმარებელს
+        print()
+        choice = input(f"გსურთ მიღებული შედეგის ({display_result}) გამოყენება შემდეგი გამოთვლისთვის? (yes/no/exit): ").strip().lower()
 
-# მომხმარებლის მიერ შესაყვანი ფუნქციის გამოძახება
-user_input()"""
+        if choice in ["yes", "y", "კი", "ki"]:
+            num1 = result  # შედეგი გადადის პირველ რიცხვად
+        elif choice in ["exit", "გამოსვლა"]:
+            print()
+            print("გმადლობთ კალკულატორით სარგებლობისთვის!")
+            break
+        else:
+            num1 = None  # თავიდან იწყება ახალი ტოლობა
 
-# calculator.py ფაილში ჩაწერა მთელი იმ კოდს, რაც მოთავსებულია სამმაგ ბრჭყალებში
+# პროგრამის გაშვება
+main()
+"""
+
+# calculator.py ფაილში ჩაწერა
 with open(file_name, "w", encoding="utf-8") as file:
     file.write(calculator_code)
-
 ###===============================================================================================================###
 
 # დავალება 2 - თამაში 1 (გამოიცანით რიცხვი)
